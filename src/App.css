@@ -8,6 +8,7 @@ body {
 .app-layout {
   display: flex;
   min-height: 100vh;
+  background-color: #F8FAFC;
 }
 
 /* Sidebar */
@@ -67,6 +68,12 @@ body {
 
 .sidebar-btn.active {
   background: linear-gradient(135deg, #00b4ff, #4f46e5);
+}
+
+.dashboard-main-wrapper {
+  flex: 1; /* Ocupa el espacio restante */
+  margin-left: 260px; /* ✅ Esto es lo que vamos a modificar en móvil */
+  width: calc(100% - 260px); /* ✅ Esto es lo que vamos a modificar en móvil */
 }
 
 /* Main */
@@ -286,4 +293,46 @@ body {
   justify-content: center;
   font-size: 0.85rem;
   color: #6b7280;
+}
+
+/* --- MEDIA QUERIES PARA RESPONSIVIDAD (Móviles y Tablets) --- */
+
+@media (max-width: 768px) {
+  /* 1. Ocultar la barra lateral por completo */
+  .sidebar {
+    display: none;
+  }
+  
+  /* 2. Permitir que el contenido principal ocupe todo el ancho */
+  .dashboard-main-wrapper {
+    margin-left: 0; /* Elimina el margen fijo de 260px */
+    width: 100%;    /* Ocupa el 100% del ancho de la pantalla */
+    padding: 1rem;  /* Ajusta el padding para móviles si es necesario */
+  }
+  
+  /* 3. Ajustar el diseño de la cuadrícula (Summary Grid) */
+  /* El grid actual tiene 4 columnas, en móvil lo reduciremos a una sola columna */
+  .summary-grid {
+    display: flex;
+    flex-direction: column; /* Apila todos los elementos verticalmente */
+    gap: 1.5rem;
+  }
+
+  /* 4. Ajustar la fila de KPIs */
+  .kpi-row {
+    flex-direction: column; /* Apila las tarjetas KPI una encima de la otra */
+    gap: 1rem;
+  }
+  
+  /* 5. Asegurar que las tarjetas tomen el ancho completo */
+  .kpi-card, .donut-card, .map-card {
+    width: 100%;
+    /* Flex: none asegura que no intenten compartir espacio horizontal */
+    flex: none; 
+  }
+  
+  /* 6. Ajustar el wrapper principal (quitar el display: flex horizontal) */
+  .app-layout {
+    display: block; /* Vuelve a un flujo de bloques estándar para que los elementos se apilen */
+  }
 }

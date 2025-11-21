@@ -1,22 +1,47 @@
-import React from "react";
+import React, { useState } from "react";
 import Sidebar from "./Sidebar";
-import { Outlet } from "react-router-dom"; // Aquí se cargarán tus páginas (Resumen/Gráficas)
+import { Outlet } from "react-router-dom"; 
+import { Menu } from "lucide-react"; // Ya no necesitamos importar X aquí
 
 export default function Layout() {
-  return (
-    <div style={{ display: "flex", minHeight: "100vh", backgroundColor: "#F8FAFC" }}>
-      
-      {/* 1. SIDEBAR FIJO */}
-      <Sidebar />
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false); 
+  
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
 
-      {/* 2. ÁREA DE CONTENIDO */}
-      {/* MarginLeft: 260px para dejar espacio al sidebar fijo */}
-      <main style={{ flex: 1, marginLeft: "260px", width: "calc(100% - 260px)" }}>
-        <Outlet /> 
+  return (
+    <div className="app-layout"> 
+
+      {!isSidebarOpen && (
+        <button 
+          className="hamburger-menu-btn" 
+          onClick={toggleSidebar}
+          aria-label="Abrir menú"
+        >
+          <Menu size={24} />
+        </button>
+      )}
+      
+      {/* 2. SIDEBAR */}
+      <Sidebar 
+        isOpen={isSidebarOpen} 
+        toggleSidebar={toggleSidebar} 
+      />
+
+      {/* 3. ÁREA DE CONTENIDO PRINCIPAL */}
+      <main className="dashboard-main-wrapper">
+        <div className="dashboard-main-content">
+          <Outlet /> 
+        </div>
+        
+        {/* Capa oscura (Overlay) */}
+        <div 
+            className={`overlay-backdrop ${isSidebarOpen ? 'open' : ''}`} 
+            onClick={toggleSidebar}
+        ></div>
       </main>
       
     </div>
   );
 }
-
-
