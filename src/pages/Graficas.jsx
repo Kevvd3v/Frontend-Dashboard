@@ -31,7 +31,7 @@ export default function Graficas() {
 
       setScatterData({
         datasets: [{
-          label: `Relación PIB vs. Felicidad (${year})`,
+          label: '', // ✅ Sin label para evitar leyenda
           data: data, 
           backgroundColor: 'rgba(3, 110, 250, 0.61)',
           pointRadius: 6,
@@ -148,31 +148,32 @@ export default function Graficas() {
 
   const scatterOptions = {
     responsive: true, 
-    maintainAspectRatio: false, 
+    maintainAspectRatio: false,
+    interaction: {
+      mode: 'nearest',
+      intersect: true
+    },
     plugins: { 
       legend: { 
-        display: false // ✅ Ocultar leyenda para evitar spam
+        display: false // ✅ Totalmente oculta
       }, 
       title: { 
         display: true, 
-        text: `Relación entre el PIB Per cápita y el índice de felicidad`,
+        text: `Relación entre el PIB Per cápita y el índice de felicidad (${selectedYear})`,
         font: {
           size: window.innerWidth < 768 ? 14 : 16
         }
       },
       tooltip: {
         enabled: true,
-        mode: 'point', // ✅ Solo mostrar tooltip del punto específico
-        intersect: true, // ✅ Solo cuando el mouse está exactamente sobre el punto
+        displayColors: false, // ✅ Quita el cuadro de color en tooltip
         callbacks: {
-          // ✅ Formato limpio del tooltip - solo una vez
+          title: function() {
+            return ''; // ✅ Sin título
+          },
           label: function(context) {
             const point = context.raw;
-            return `PIB: ${point.x.toFixed(2)}, Felicidad: ${point.y.toFixed(2)}`;
-          },
-          // ✅ Eliminar el título del tooltip para evitar duplicados
-          title: function() {
-            return '';
+            return `PIB: ${point.x.toFixed(2)} | Felicidad: ${point.y.toFixed(2)}`;
           }
         }
       }
