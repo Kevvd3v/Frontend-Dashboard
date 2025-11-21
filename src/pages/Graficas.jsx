@@ -34,7 +34,8 @@ export default function Graficas() {
           label: `Relación PIB vs. Felicidad (${year})`,
           data: data, 
           backgroundColor: 'rgba(3, 110, 250, 0.61)',
-          pointRadius: 6
+          pointRadius: 6,
+          pointHoverRadius: 8
         }],
       });
 
@@ -115,7 +116,16 @@ export default function Graficas() {
         font: {
           size: window.innerWidth < 768 ? 14 : 16
         }
-      } 
+      },
+      tooltip: {
+        mode: 'index',
+        intersect: false,
+        callbacks: {
+          label: function(context) {
+            return `Promedio: ${context.parsed.y}`;
+          }
+        }
+      }
     }, 
     scales: { 
       x: { 
@@ -141,13 +151,7 @@ export default function Graficas() {
     maintainAspectRatio: false, 
     plugins: { 
       legend: { 
-        position: 'top',
-        labels: {
-          font: {
-            size: window.innerWidth < 768 ? 10 : 12
-          },
-          padding: window.innerWidth < 768 ? 10 : 15
-        }
+        display: false // ✅ Ocultar leyenda para evitar spam
       }, 
       title: { 
         display: true, 
@@ -155,7 +159,23 @@ export default function Graficas() {
         font: {
           size: window.innerWidth < 768 ? 14 : 16
         }
-      } 
+      },
+      tooltip: {
+        enabled: true,
+        mode: 'point', // ✅ Solo mostrar tooltip del punto específico
+        intersect: true, // ✅ Solo cuando el mouse está exactamente sobre el punto
+        callbacks: {
+          // ✅ Formato limpio del tooltip - solo una vez
+          label: function(context) {
+            const point = context.raw;
+            return `PIB: ${point.x.toFixed(2)}, Felicidad: ${point.y.toFixed(2)}`;
+          },
+          // ✅ Eliminar el título del tooltip para evitar duplicados
+          title: function() {
+            return '';
+          }
+        }
+      }
     }, 
     scales: { 
       x: { 
