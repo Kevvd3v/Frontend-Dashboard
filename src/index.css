@@ -5,9 +5,9 @@
   font-family: 'Poppins', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
-/* Fondo general */
 body {
   background-color: #f5f8fc;
+  overflow-x: hidden;
 }
 
 /* --------------------------------- */
@@ -17,26 +17,30 @@ body {
 .app-layout {
   display: flex;
   min-height: 100vh;
+  position: relative;
 }
 
-/* Sidebar (Estilos base Desktop) */
+/* --------------------------------- */
+/* SIDEBAR */
+/* --------------------------------- */
+
 .sidebar {
   width: 260px; 
   height: 100vh;
-  background-color: #0F172A; /* Fondo Oscuro */
+  background-color: #0F172A;
   display: flex; 
   flex-direction: column; 
   padding: 25px;
-  position: fixed; /* Fijo en desktop */
+  position: fixed;
   left: 0;
   top: 0;
   border-right: 1px solid #1E293B;
   color: white; 
-  transition: left 0.3s ease-in-out; /* Transición suave para móvil */
+  transition: left 0.3s ease-in-out;
   z-index: 999;
+  overflow-y: auto;
 }
 
-/* Elementos del Sidebar */
 .sidebar-header {
   display: flex; 
   align-items: center; 
@@ -52,7 +56,8 @@ body {
   border-radius: 10px; 
   display: flex; 
   align-items: center; 
-  justify-content: center; 
+  justify-content: center;
+  flex-shrink: 0;
 }
 
 .sidebar-logo-text-title {
@@ -70,183 +75,182 @@ body {
 }
 
 .sidebar-footer {
-    margin-top: auto; 
-    padding: 20px 0; 
-    border-top: 1px solid #1E293B;
+  margin-top: auto; 
+  padding: 20px 0; 
+  border-top: 1px solid #1E293B;
 }
 
 .sidebar-footer-text {
-    color: #64748B; 
-    font-size: 0.75rem; 
-    text-align: center; 
-    margin: 0;
+  color: #64748B; 
+  font-size: 0.75rem; 
+  text-align: center; 
+  margin: 0;
 }
 
-/* Botón de cierre dentro del sidebar (Oculto en Desktop) */
 .sidebar-close-btn {
-    display: none;
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: none;
-    color: white;
-    border: none;
-    cursor: pointer;
-    z-index: 1000;
+  display: none;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  color: white;
+  border: none;
+  cursor: pointer;
+  z-index: 1000;
+  font-size: 24px;
 }
 
-/* Contenedor Principal (Main Wrapper) */
+/* --------------------------------- */
+/* CONTENEDOR PRINCIPAL */
+/* --------------------------------- */
+
 .dashboard-main-wrapper {
   flex: 1; 
-  margin-left: 260px; /* Deja espacio para el sidebar fijo */
+  margin-left: 260px;
   width: calc(100% - 260px); 
   padding: 2rem 2.5rem;
   transition: margin-left 0.3s ease, width 0.3s ease;
+  min-height: 100vh;
 }
 
 /* --------------------------------- */
-/* Estilos de Contenido (Grid, Cards, etc.) */
+/* BOTÓN HAMBURGUESA (Móvil) */
 /* --------------------------------- */
 
-.summary-grid {
-  display: grid;
-  grid-template-columns: 1.1fr 1.1fr 1.1fr 1.4fr;
-  grid-template-rows: auto 1fr;
-  gap: 1.5rem;
-}
-
-.kpi-row {
-  grid-column: 1 / 4;
-  display: flex;
-  gap: 1rem;
-}
-
-.kpi-card {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 1rem;
-  border-radius: 18px;
-  background-color: white;
-  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
-}
-
-/* Otros estilos de cards que ya tenías */
-.map-card, .donut-card, .chart-card {
-    background-color: white;
-    border-radius: 18px;
-    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
-}
-
-
-/* --------------------------------- */
-/* Componentes Móviles (Ocultos por defecto en Desktop) */
-/* --------------------------------- */
-
-/* Botón Hamburguesa */
 .hamburger-menu-btn {
-  display: none; 
+  display: none; /* ✅ OCULTO POR DEFECTO EN DESKTOP */
   position: fixed;
   top: 15px;
   left: 15px;
   z-index: 1000; 
-  
   background: linear-gradient(135deg, rgb(95, 183, 212) 0%, rgb(38, 151, 221) 100%);
-  
   color: white;
   border: none;
   border-radius: 8px;
-  padding: 10px;
+  padding: 10px 12px;
   cursor: pointer;
-  /* Le añadimos una sombra suave para que resalte sobre el fondo */
-  box-shadow: 0 4px 15px rgba(63, 47, 204, 0.4); 
-  transition: transform 0.2s ease; /* Un pequeño efecto al pulsar */
+  box-shadow: 0 4px 15px rgba(76, 47, 204, 0.4); 
+  transition: transform 0.2s ease;
 }
 
 .hamburger-menu-btn:active {
-    transform: scale(0.95); /* Efecto de click */
+  transform: scale(0.95);
 }
 
-/* Overlay (Fondo oscuro) */
+/* --------------------------------- */
+/* OVERLAY (Fondo oscuro) */
+/* --------------------------------- */
+
 .overlay-backdrop {
-    opacity: 0;
-    visibility: hidden;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 998; 
-    transition: opacity 0.3s ease;
+  opacity: 0;
+  visibility: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 998; 
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  pointer-events: none;
 }
 
 .overlay-backdrop.open {
-    opacity: 1;
-    visibility: visible;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
 }
 
+/* --------------------------------- */
+/* ESTILOS DE CONTENIDO */
+/* --------------------------------- */
 
-/* ------------------------------------------------------------- */
-/* --- MEDIA QUERIES PARA MÓVILES (max-width: 768px) --- */
-/* ------------------------------------------------------------- */
+.map-card, .donut-card, .chart-card {
+  background-color: white;
+  border-radius: 18px;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+}
+
+/* ✅ Grid para KPIs - siempre 3 columnas en desktop */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+/* --------------------------------- */
+/* GRID RESPONSIVE PARA DESKTOP */
+/* --------------------------------- */
+
+@media (min-width: 1025px) {
+  .desktop-col-8 {
+    grid-column: span 8 !important;
+  }
+  
+  .desktop-col-4 {
+    grid-column: span 4 !important;
+  }
+}
+
+/* --------------------------------- */
+/* MEDIA QUERIES - TABLETS */
+/* --------------------------------- */
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .dashboard-main-wrapper {
+    padding: 1.5rem;
+  }
+  
+  .desktop-col-8,
+  .desktop-col-4 {
+    grid-column: span 12 !important;
+  }
+  
+  /* KPIs en 2 columnas en tablet */
+  .kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* --------------------------------- */
+/* MEDIA QUERIES - MÓVIL */
+/* --------------------------------- */
 
 @media (max-width: 768px) {
   
-  /* 1. Mostrar botón hamburguesa */
+  /* ✅ MOSTRAR botón hamburguesa solo en móvil */
   .hamburger-menu-btn {
-    display: block; 
+    display: block !important; 
   }
 
-  /* 2. Sidebar Oculto (Overlay) */
   .sidebar {
-    left: -260px; /* Escondido a la izquierda fuera de la pantalla */
+    left: -260px;
     box-shadow: 4px 0 15px rgba(0, 0, 0, 0.3);
   }
 
-  /* Clase 'open' (activada por React) desliza el sidebar a la vista */
   .sidebar.open {
     left: 0; 
   }
   
-  /* Mostrar botón de cierre dentro del sidebar */
   .sidebar-close-btn {
-      display: block;
+    display: block;
   }
 
-  /* 3. Ajustar Contenedor Principal */
   .dashboard-main-wrapper {
-    margin-left: 0; /* Quitar margen izquierdo */
-    width: 100%;    /* Ancho completo */
-    padding: 1rem;
-    padding-top: 70px; /* Espacio superior para no quedar bajo el botón hamburguesa */
-  }
-
-  /* 4. Apilar contenido verticalmente (Stacking) */
-  
-  /* Grid principal a una sola columna */
-  .summary-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  /* KPIs apilados */
-  .kpi-row {
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  /* Tarjetas a ancho completo */
-  .kpi-card, .donut-card, .map-card, .chart-card {
+    margin-left: 0;
     width: 100%;
-    flex: none;
+    padding: 1rem;
+    padding-top: 70px;
   }
-
-  /* Ajuste del Donut Chart */
-  .donut-chart-wrapper {
-    flex-direction: column;
-    align-items: center;
+  
+  .desktop-col-8,
+  .desktop-col-4 {
+    grid-column: span 12 !important;
+  }
+  
+  /* ✅ KPIs apilados verticalmente en móvil */
+  .kpi-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
   }
 }

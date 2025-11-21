@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Sidebar from "./Sidebar";
 import { Outlet } from "react-router-dom"; 
-import { Menu } from "lucide-react"; // Ya no necesitamos importar X aquí
+import { Menu } from "lucide-react";
 
 export default function Layout() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false); 
@@ -13,6 +13,7 @@ export default function Layout() {
   return (
     <div className="app-layout"> 
 
+      {/* 1. BOTÓN HAMBURGUESA (Solo visible en móvil Y cuando sidebar está cerrado) */}
       {!isSidebarOpen && (
         <button 
           className="hamburger-menu-btn" 
@@ -29,17 +30,15 @@ export default function Layout() {
         toggleSidebar={toggleSidebar} 
       />
 
-      {/* 3. ÁREA DE CONTENIDO PRINCIPAL */}
+      {/* 3. OVERLAY (Fondo oscuro) - FUERA del main */}
+      <div 
+        className={`overlay-backdrop ${isSidebarOpen ? 'open' : ''}`} 
+        onClick={toggleSidebar}
+      ></div>
+
+      {/* 4. ÁREA DE CONTENIDO PRINCIPAL */}
       <main className="dashboard-main-wrapper">
-        <div className="dashboard-main-content">
-          <Outlet /> 
-        </div>
-        
-        {/* Capa oscura (Overlay) */}
-        <div 
-            className={`overlay-backdrop ${isSidebarOpen ? 'open' : ''}`} 
-            onClick={toggleSidebar}
-        ></div>
+        <Outlet /> 
       </main>
       
     </div>
