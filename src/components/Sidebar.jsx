@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { LayoutDashboard, BarChart3, Globe, X } from "lucide-react"; 
+import logo from '../image/Logo.png';
 
 export default function Sidebar({ isOpen, toggleSidebar }) {
   
@@ -29,15 +30,19 @@ export default function Sidebar({ isOpen, toggleSidebar }) {
           <X size={24} />
       </button>
 
-      {/* LOGO */}
-      <div className="sidebar-header">
-        <div className="sidebar-logo-icon-wrapper">
-            <Globe color="white" size={20} />
-        </div>
-        <h1 className="sidebar-logo-text-title">
-          Happy World
-        </h1>
-      </div>
+     {/* LOGO - CÓDIGO FINAL CON IMAGEN */}
+      <div className="sidebar-header">
+        <div className="sidebar-logo-icon-wrapper">
+            <img 
+                src={logo} 
+                alt="Logo Happy World"
+                style={{ width: '45px', height: '40px' }}
+            />
+        </div>
+        <h1 className="sidebar-logo-text-title">
+          Happy World
+        </h1>
+      </div>
 
       {/* MENÚ DE NAVEGACIÓN */}
       <nav className="sidebar-nav">
